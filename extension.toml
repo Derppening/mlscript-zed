@@ -1,0 +1,7 @@
+id = "mlscript"
+name = "MLscript"
+version = "0.0.1"
+schema_version = 1
+authors = ["David Mak <chmakac@connect.ust.hk>"]
+description = "MLscript language support for Zed"
+# repository = ""
