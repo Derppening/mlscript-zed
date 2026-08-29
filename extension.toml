@@ -1,7 +1,13 @@
 id = "mlscript"
 name = "MLscript"
-version = "0.0.1"
+version = "0.1.0"
 schema_version = 1
 authors = ["David Mak <chmakac@connect.ust.hk>"]
 description = "MLscript language support for Zed"
 # repository = ""
+
+snippets = ["./snippets/mlscript.json"]
+
+[grammars.mlscript]
+repository = "https://github.com/Derppening/tree-sitter-mlscript"
+rev = "a8fe8684905b3bcaf89517271dcec42fa6d0119a"

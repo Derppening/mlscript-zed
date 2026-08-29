@@ -1,0 +1,88 @@
+// A sample MLscript file, used to check the extension's tree-sitter queries
+// against real parse trees. Not a test suite -- open it in Zed and look.
+
+/* A block comment, which the reference lexer does not nest. */
+
+:todo
+:parseOnly
+fun leftover(x) = x
+//│ Parsed: fun leftover(x) = x
+
+import "fs"
+open Predef
+
+@compile
+module Sample with
+  val name = "sample"
+  val version = 0.1
+  let count = 42
+  let flag = true
+  let nothing = null
+  let escaped = "a \"quoted\" line\nA"
+  let anything = _
+
+class Pair[A, B](fst: A, snd: B) extends Object with
+  fun swap() = Pair(snd, fst)
+  fun toString() = "Pair(" + fst.toString() + ", " + snd.toString() + ")"
+
+abstract class Shape: Circle | Square
+trait Show[A] with
+  fun show(x: A): Str
+object Origin
+mixin Counting with
+  fun tick() = set steps = steps + 1
+type Maybe[A] = A | Null
+pattern Digit = "0" | "1"
+
+fun describe(s) = if s is
+  Circle(r) then "circle " + r
+  Square(w) then "square " + w
+  else "unknown"
+
+fun loop(n) =
+  let mut i = 0
+  while i < n do
+    set i = i + 1
+  i
+
+fun grouping() = 1 * 2 + 3 - 4 / 5
+
+fun puns(x, y) = f(:x, =y)
+
+fun selections(p) =
+  let a = p.fst
+  let b = p.fst.snd
+  let c = .field
+  let d = p.[0]
+  print of a, b
+
+fun higher() = map of
+  x => x + 1
+
+fun effects() =
+  handle h = Effect with
+    fun perform()(k) = k(1)
+  h.perform()
+
+fun scoped() = region r in
+  r.ref 1
+
+fun guarded() =
+  try
+    risky()
+  finally
+    cleanup()
+
+fun quoted() =
+  let one = `1
+  let sum = one `+ `2
+  let app = f`(one)
+  let bound = `let x = `1 `in x
+
+fun newish() = new Pair(1, 2)
+fun refined() = Pair { fst: 1, snd: 2 }
+fun spread(xs) = f(...xs)
+fun outerish() = outer o
+fun asserted(x) = assert x > 0
+fun ascribed(x) = x : Int
+fun escapedName() = id"weird name"

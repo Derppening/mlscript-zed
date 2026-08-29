@@ -1,0 +1,29 @@
+name = "MLscript"
+grammar = "mlscript"
+path_suffixes = ["mls", "wit"]
+
+# `Lexer.scala` lexes `//` to end of line and a `/* */` form that does not nest.
+line_comments = ["// "]
+block_comment = { start = "/*", prefix = "", end = "*/", tab_size = 1 }
+
+# MLscript is indentation sensitive, and the compiler's own sources use two spaces.
+tab_size = 2
+hard_tabs = false
+
+# `Lexer.isIdentChar` admits `'` inside a name (`x'`, `foo'`).
+word_characters = ["'"]
+
+autoclose_before = ";:.,=}])>"
+
+brackets = [
+    { start = "{", end = "}", close = true, newline = true },
+    { start = "[", end = "]", close = true, newline = true },
+    { start = "(", end = ")", close = true, newline = true },
+    { start = "\"", end = "\"", close = true, newline = false, not_in = ["string"] },
+    { start = "/*", end = " */", close = true, newline = false, not_in = ["string", "comment"] },
+]
+
+# `indents.scm` indents a block once the block exists in the tree, which it does
+# not yet at the moment the newline is typed. This covers that keystroke: the
+# tokens that open an indented block all end the line they open it on.
+increase_indent_pattern = '(?:=>|->|=|\b(?:then|else|do|of|with|in|is|try|finally|case|constructor)\b)[ \t]*(?://.*)?$'
