@@ -10,6 +10,7 @@ fun leftover(x) = x
 
 import "fs"
 open Predef
+open Predef { pure, print }
 
 @compile
 module Sample with

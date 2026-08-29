@@ -6,6 +6,16 @@
 
 (annotation) @annotation
 
+; `open Predef`, `open Foo { a, b }` and `open Bar with <block>` all keep the
+; module name as the first named child, as the VS Code extension's symbol
+; provider does for `Tree.Open`.
+(open_statement
+  "open" @context
+  module: [
+    (identifier) @name
+    (_ . (identifier) @name)
+  ]) @item
+
 (fun_definition
   (modifier)* @context
   "fun" @context
